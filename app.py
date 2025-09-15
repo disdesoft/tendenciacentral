@@ -317,13 +317,12 @@ if uploaded is None and not use_example:
 else:
     # Cargar archivo o usar dataset existente en el servidor (si el usuario ya subió anteriormente al entorno)
     if use_example and uploaded is None:
-        # Intentar cargar path conocido (si el docente/usuario colocó el archivo en el servidor)
         try:
-            example_path = 'DATASET 500.xlsx'  # nombre esperado si se subió al mismo directorio
+            example_path = 'data/DATASET 500.xlsx'
             df_raw = pd.read_excel(example_path)
-            st.success(f'Dataset de ejemplo cargado desde: {example_path}')
-        except Exception:
-            st.error('No se encontró dataset de ejemplo en el servidor. Por favor, suba su archivo.')
+            st.success('Dataset de ejemplo cargado desde el repositorio.')
+        except Exception as e:
+            st.error(f'No se encontró dataset de ejemplo. Error: {e}')
             df_raw = None
     else:
         df_raw = cargar_dataset(uploaded)
